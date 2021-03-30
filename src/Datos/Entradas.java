@@ -12,11 +12,21 @@ import java.util.ArrayList;
  * @author JOELBOLIVARGM
  */
 public class Entradas {
-    int x1, x2, x3, y1;
+    int x1, x2, y1;
+    Integer x3;
     public static ArrayList listaEntradas;
     
     String titulo;
 
+
+    public Integer getX3() {
+        return x3;
+    }
+
+    public void setX3(Integer x3) {
+        this.x3 = x3;
+    }
+    
     public String getTitulo() {
         return titulo;
     }
@@ -50,13 +60,7 @@ public class Entradas {
         this.x2 = x2;
     }
 
-    public int getX3() {
-        return x3;
-    }
-
-    public void setX3(int x3) {
-        this.x3 = x3;
-    }
+   
 
     public int getY1() {
         return y1;

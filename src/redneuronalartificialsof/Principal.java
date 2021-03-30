@@ -7,7 +7,6 @@
 
 package redneuronalartificialsof;
 import Archivos.ArchivoCarga;
-import Datos.Calculos;
 import Datos.Entradas;
 import Datos.Pesos;
 import java.io.BufferedReader;
@@ -28,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Principal extends javax.swing.JFrame {
 
-    boolean verificar = false;
+    boolean verificar = false, verificar2 = false;
     public ArchivoCarga archivoCarga = new ArchivoCarga(); 
 
     DefaultTableModel model_Table,model_Table2;
@@ -39,8 +38,7 @@ public class Principal extends javax.swing.JFrame {
     Pesos pesos;
     ArrayList<Pesos> listaPesos = null;
     ArrayList<Entradas> listEntradas;
-    Calculos calculos;
-    
+
     public Principal() {
       initComponents();
          
@@ -348,14 +346,15 @@ public class Principal extends javax.swing.JFrame {
        listEntradas = new ArrayList();
         try {
             listEntradas = archivoCarga.leerArchivo();
+                    
             
-            String titulos[]={"X1","X2", "W1"};
+            String titulos[]={"X1","X2","X3"};
             model_Table = new DefaultTableModel();
             model_Table.setColumnIdentifiers(titulos);
        
         
             for(Entradas a: listEntradas){
-             Object datos[]={a.getX1(), a.getX2(),a.getY1()};
+             Object datos[]={a.getX1(), a.getX2(),a.getX3()};
              model_Table.addRow(datos);
             }
             
@@ -370,25 +369,36 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCargarActionPerformed
 
     private void buttonAgregarPesosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAgregarPesosActionPerformed
-        Agregar();
+      
+        double parsePesos;
+        
+        parsePesos = Double.parseDouble(textPesos.getText());
+        
+        
+        if(parsePesos >= -1 && parsePesos <= 1){
+           
+                 Agregar();
+              
+        }else{
+             JOptionPane.showMessageDialog(this, "Rango -1 a 1");
+        }
+        
     }//GEN-LAST:event_buttonAgregarPesosActionPerformed
 
     private void buttonEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntradaActionPerformed
-        
-      
+
     }//GEN-LAST:event_buttonEntradaActionPerformed
      
     public void Agregar(){
       
-      
         listaPesos = new ArrayList<>();
    
-        String w1 = null, w2 = null;
+        String w1 = null, w2 = null, w3 = null;
         
         if(this.tablePesos.getRowCount() == 0 ){
             verificar = true;
             model_Table2 = new DefaultTableModel();
-            String titulos[]={"W1", "W2"};
+            String titulos[]={"W1"};
             
             model_Table2.setColumnIdentifiers(titulos);
             System.out.println("Entro 1,1");
@@ -399,15 +409,15 @@ public class Principal extends javax.swing.JFrame {
             pesos = new Pesos();
 
             
-            int parseoW1, parseoW2;
+            double parseoW1;
           
-            parseoW1=Integer.parseInt(w1);
+            parseoW1=Double.parseDouble(w1);
 
             pesos.setW1(parseoW1);
 ;
             listaPesos.add(pesos);
             
-           }catch (NumberFormatException Ex) {
+            }catch (NumberFormatException Ex) {
                 JOptionPane.showMessageDialog(this, "Letras en campos numéricos");
             }
            
@@ -419,18 +429,22 @@ public class Principal extends javax.swing.JFrame {
               
             tablePesos.setModel(model_Table2);
             System.out.println(verificar);
+            
         }else if(verificar == true){
           
+             String titulos[]={"W1", "W2"};
+            
+            model_Table2.setColumnIdentifiers(titulos);
+            
             System.out.println("Entro 1,2");
              
            try {
           
              w2 = textPesos.getText().trim();
             
-            int parseoW1, parseoW2;
-          
+            double parseoW2;
 
-            parseoW2=Integer.parseInt(w2);
+            parseoW2=Double.parseDouble(w2);
          
             pesos.setW2(parseoW2);
 
@@ -447,12 +461,49 @@ public class Principal extends javax.swing.JFrame {
              model_Table2.addRow(datos);
             }
 
-              
-              tablePesos.setModel(model_Table2);
+            tablePesos.setModel(model_Table2);
             verificar = false;
             System.out.println(verificar);
-        }else if( verificar == false){
-            System.out.println("No entra");
+            
+             verificar2 = true;
+             
+        }else if( verificar2 == true){
+            
+             String titulos[]={"W1", "W2", "W3"};
+            
+            model_Table2.setColumnIdentifiers(titulos);
+            
+            System.out.println("Entro 1,3");
+             
+           try {
+          
+             w3 = textPesos.getText().trim();
+            
+            double parseoW3;
+
+            parseoW3=Double.parseDouble(w3);
+         
+            pesos.setW3(parseoW3);
+
+            listaPesos.add(pesos);
+            
+           }catch (NumberFormatException Ex) {
+                JOptionPane.showMessageDialog(this, "Letras en campos numéricos");
+            }
+            eliminarTablaPesos();
+            
+            for(Pesos a: listaPesos){
+            
+             Object datos[]={a.getW1() ,a.getW2(), a.getW3()};
+             model_Table2.addRow(datos);
+            }
+
+            tablePesos.setModel(model_Table2);
+            
+            
+            verificar2=false;
+        }else{
+            System.out.println("No puede entrar");
         }
                    
     

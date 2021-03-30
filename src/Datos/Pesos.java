@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * @author JOELBOLIVARGM
  */
 public class Pesos {
-       int w1, w2, w3;
+       double w1, w2, w3;
        
         public static ArrayList listaPesos;
 
@@ -26,27 +26,27 @@ public class Pesos {
     
    
     
-    public int getW1() {
+    public double getW1() {
         return w1;
     }
 
-    public void setW1(int w1) {
+    public void setW1(double w1) {
         this.w1 = w1;
     }
 
-    public int getW2() {
+    public double getW2() {
         return w2;
     }
 
-    public void setW2(int w2) {
+    public void setW2(double w2) {
         this.w2 = w2;
     }
 
-    public int getW3() {
+    public double getW3() {
         return w3;
     }
 
-    public void setW3(int w3) {
+    public void setW3(double w3) {
         this.w3 = w3;
     }
        

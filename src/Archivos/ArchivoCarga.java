@@ -41,8 +41,8 @@ public class ArchivoCarga {
                 PrintWriter pw = new PrintWriter( Fw);
                String NumW1, NumW2;
                 for (Pesos listapesos: p) {
-                   NumW1 = Integer.toString(listapesos.getW1());
-                   NumW2 = Integer.toString(listapesos.getW2());
+                   NumW1 = Double.toString(listapesos.getW1());
+                   NumW2 = Double.toString(listapesos.getW2());
                     pw.println(NumW1 + ";;"+ NumW2);
                 }
                 return true;
@@ -78,18 +78,26 @@ public class ArchivoCarga {
         
          ArrayList<Entradas> leerArray = new ArrayList();
          System.out.println(leerArray.size());
-         
+          Entradas entradas = new Entradas();
+          
          while(this.aLect.hasNext()){
              String datos[] = this.aLect.nextLine().split(";;");
-              Entradas entradas = new Entradas();
+             entradas = new Entradas();
 
              entradas.setX1(Integer.parseInt(datos[0]));
              
              entradas.setX2(Integer.parseInt(datos[1]));
+       
+             try{
+               entradas.setX3(Integer.parseInt(datos[2]));  
+             }catch (Exception e2) {
+               entradas.setX3(null);
+        
+             }
+         
+            
              
-             entradas.setY1(Integer.parseInt(datos[2]));
-             
-             System.out.println("Entradas " + entradas.getX1() + "  " + entradas.getX2()+ " Salidas:" + entradas.getY1());
+             System.out.println("Entradas " + entradas.getX1() + "  " + entradas.getX2()+ "  " + entradas.getX3());
             
              leerArray.add(entradas); 
               
@@ -100,7 +108,7 @@ public class ArchivoCarga {
          this.aLect.close();
         
          for(int i = 0; i< leerArray.size(); i++){
-         System.out.println(leerArray.get(i).getX1() + "" +  leerArray.get(i).getX2() + "" + leerArray.get(i).getY1());
+         System.out.println(leerArray.get(i).getX1() + "" +  leerArray.get(i).getX2() + "" + leerArray.get(i).getX3());
          }  
         
          return leerArray;
