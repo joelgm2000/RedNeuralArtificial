@@ -7,6 +7,8 @@ package Archivos;
 
 import Datos.Entradas;
 import Datos.Pesos;
+import Datos.SeparadoEntrada;
+import Datos.SeparadoSalidas;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,12 +28,18 @@ public class ArchivoCarga {
     
         File archivo;
         private Scanner aLect;
-
+        ArrayList<Entradas> leerArray ;
+        ArrayList<SeparadoEntrada> separadoEntradaArray;
+        ArrayList<SeparadoSalidas> separadoSalidaArray;
+        
+        Entradas entradas = new Entradas();
+        SeparadoSalidas separadoSalidas ;
+        SeparadoEntrada separadoEntrada ;
     public ArchivoCarga() {
         this.archivo = null;
     }
     
-       public boolean GuardarPesos(ArrayList<Pesos> p) throws IOException {
+       public boolean GuardarEntradas(ArrayList<Pesos> p) throws IOException {
         
         if (this.archivo.exists()) {
            
@@ -65,55 +73,78 @@ public class ArchivoCarga {
     }
         
         
-        
-        
-    public ArrayList<Entradas> leerArchivo() throws FileNotFoundException{
-        
+     public void cargarArchivo() throws FileNotFoundException{
         JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(null);
         archivo = fc.getSelectedFile();
         System.out.println(this.archivo);
           
-        this.aLect = new Scanner(this.archivo);
         
-         ArrayList<Entradas> leerArray = new ArrayList();
-         System.out.println(leerArray.size());
-          Entradas entradas = new Entradas();
-          
+        this.aLect = new Scanner(this.archivo);
+     } 
+       
+        
+    public ArrayList<Entradas> leerArchivo() throws FileNotFoundException{
+    leerArray = new ArrayList();
+             separadoEntradaArray = new ArrayList();
+             separadoSalidaArray = new ArrayList();
          while(this.aLect.hasNext()){
              String datos[] = this.aLect.nextLine().split(";;");
+             
              entradas = new Entradas();
-
+             separadoSalidas = new SeparadoSalidas();
+             separadoEntrada = new SeparadoEntrada();
+             
+             
+             
              entradas.setX1(Integer.parseInt(datos[0]));
+             separadoEntrada.setX1(Integer.parseInt(datos[0]));
              
              entradas.setX2(Integer.parseInt(datos[1]));
-       
-             try{
-               entradas.setX3(Integer.parseInt(datos[2]));  
+             separadoEntrada.setX2(Integer.parseInt(datos[1]));
+
+             entradas.setX3(Integer.parseInt(datos[2]));  
+             separadoEntrada.setX3(Integer.parseInt(datos[2]));
+             
+             try{ 
+                entradas.setY1(Integer.parseInt(datos[3]));
+                separadoSalidas.setYd1(Integer.parseInt(datos[3]));
+                
              }catch (Exception e2) {
-               entradas.setX3(null);
-        
+               
+                entradas.setX3(null);
+                separadoEntrada.setX3(null);
+                
+                entradas.setY1(Integer.parseInt(datos[2]));
+                separadoSalidas.setYd1(Integer.parseInt(datos[2]));
+                
              }
-         
-            
-             
-             System.out.println("Entradas " + entradas.getX1() + "  " + entradas.getX2()+ "  " + entradas.getX3());
-            
+               
+//             System.out.println("Entradas " + entradas.getX1() + "  " + entradas.getX2()+ "  " + entradas.getX3());
+       
+
              leerArray.add(entradas); 
-              
-            
+             separadoEntradaArray.add(separadoEntrada);
+             separadoSalidaArray.add(separadoSalidas);
              
+             SeparadoEntrada.setListaEntradaSeparado(separadoEntradaArray);
+             SeparadoSalidas.setListaSalidas(separadoSalidaArray);
+             
+                 
          }
-         
+               
+     
          this.aLect.close();
         
-         for(int i = 0; i< leerArray.size(); i++){
-         System.out.println(leerArray.get(i).getX1() + "" +  leerArray.get(i).getX2() + "" + leerArray.get(i).getX3());
-         }  
+//         for(int i = 0; i< leerArray.size(); i++){
+//         System.out.println(leerArray.get(i).getX1() + "" +  leerArray.get(i).getX2() + "" + leerArray.get(i).getX3());
+//         }  
         
          return leerArray;
     }
-
+    
+    
+    
     public File getArchivo() {
         return archivo;
     }

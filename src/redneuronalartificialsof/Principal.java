@@ -9,6 +9,10 @@ package redneuronalartificialsof;
 import Archivos.ArchivoCarga;
 import Datos.Entradas;
 import Datos.Pesos;
+import Datos.SeparadoEntrada;
+import Datos.SeparadoSalidas;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -38,10 +42,17 @@ public class Principal extends javax.swing.JFrame {
     Pesos pesos;
     ArrayList<Pesos> listaPesos = null;
     ArrayList<Entradas> listEntradas;
-
+    ArrayList<SeparadoEntrada> SeparadoEntradaArray;
+    ArrayList<SeparadoSalidas> SeparadoSalidaArray;
+    
     public Principal() {
       initComponents();
-         
+         ComboBox();
+          //Línea 1
+        this.setSize(new Dimension(1100, 735));
+        
+        this.getContentPane().setBackground(Color.getHSBColor(114,272,101));
+      
     }
     
     @SuppressWarnings("unchecked")
@@ -54,31 +65,37 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         textPesos = new javax.swing.JTextField();
         buttonAgregarPesos = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableValoresEntradas = new javax.swing.JTable();
-        buttonEntrada = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tablePesos = new javax.swing.JTable();
         buttonSiguienteEntradas = new javax.swing.JButton();
+        buttonVerErrorIteracion = new javax.swing.JButton();
+        buttonYDvsYR = new javax.swing.JButton();
+        buttonEntrada = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        comboFuncionActivacion = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         txtFuncionSoma = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        txtSalida = new javax.swing.JTextField();
-        buttonVerErrorIteracion = new javax.swing.JButton();
-        buttonYDvsYR = new javax.swing.JButton();
+        txtYr = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtEli = new javax.swing.JTextField();
+        txtWji1 = new javax.swing.JTextField();
+        txtEp = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txtWji2 = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        txtUi = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txtWji3 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEntradas = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtSalidas = new javax.swing.JTextField();
+        txtPatrones = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        tablePesos2 = new javax.swing.JTable();
-        jLabel7 = new javax.swing.JLabel();
-        txtFuncionSoma1 = new javax.swing.JTextField();
-        txtSalida1 = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tableSalida = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuInicio = new javax.swing.JMenu();
         jMenuGuardar = new javax.swing.JMenuItem();
@@ -86,6 +103,7 @@ public class Principal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("RNA");
+        setBackground(new java.awt.Color(121, 181, 0));
 
         buttonCargar.setText("Cargar Entradas");
         buttonCargar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,17 +123,6 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane2.setViewportView(tableValoresEntradas);
-
-        buttonEntrada.setText("ENTRENAR");
-        buttonEntrada.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonEntradaActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setText("Calculando estos valores de entradas");
-
         tablePesos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -128,98 +135,82 @@ public class Principal extends javax.swing.JFrame {
 
         buttonSiguienteEntradas.setText("Siguiente");
 
-        jLabel3.setText("Respuesta Funcion SOMA (S)");
-
-        txtFuncionSoma.setEditable(false);
-
-        jLabel4.setText("Respuesta de la salida");
-
-        txtSalida.setEditable(false);
-
         buttonVerErrorIteracion.setText("Ver grafica del error de la iteracion");
 
         buttonYDvsYR.setText("Ver grafica de YD vs YR");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel5.setText("Regla Delta");
+        buttonEntrada.setText("ENTRENAR");
+        buttonEntrada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEntradaActionPerformed(evt);
+            }
+        });
 
-        jLabel6.setText("Nuevo Pesos");
+        jLabel13.setText("Funcion de activacion");
 
-        jScrollPane4.setViewportView(tablePesos2);
+        comboFuncionActivacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboFuncionActivacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboFuncionActivacionActionPerformed(evt);
+            }
+        });
 
-        jLabel7.setText("Respuesta Funcion SOMA (S)");
+        jLabel3.setText("Respuesta Funcion SOMA (S)");
 
-        txtFuncionSoma1.setEditable(false);
+        txtFuncionSoma.setEditable(false);
 
-        txtSalida1.setEditable(false);
+        jLabel4.setText("YRi=");
 
-        jLabel8.setText("Respuesta de la salida");
+        txtYr.setEditable(false);
 
-        jScrollPane5.setViewportView(tableSalida);
+        jLabel14.setText("Eli=");
 
-        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel9.setText("SALIDAS");
+        txtEli.setEditable(false);
+
+        txtWji1.setEditable(false);
+
+        txtEp.setEditable(false);
+
+        jLabel17.setText("Wji=");
+
+        txtWji2.setEditable(false);
+
+        jLabel16.setText("Wji=");
+
+        jLabel15.setText("Ep=");
+
+        txtUi.setEditable(false);
+
+        jLabel18.setText("Wji=");
+
+        jLabel19.setText("Ui=");
+
+        txtWji3.setEditable(false);
+
+        jPanel1.setBackground(new java.awt.Color(35, 105, 64));
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(277, 277, 277)
-                        .add(jLabel5)
-                        .add(154, 154, 154))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(21, 21, 21)
-                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jLabel6)
-                                .add(0, 0, Short.MAX_VALUE))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel9)
-                                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 466, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 23, Short.MAX_VALUE)))))
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(txtSalida1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel7)
-                    .add(txtFuncionSoma1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel8))
-                .add(18, 18, 18))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                .add(0, 0, Short.MAX_VALUE)
-                .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 600, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .add(0, 582, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLabel7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtFuncionSoma1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jLabel8)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(txtSalida1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jLabel6)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jScrollPane5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(31, 31, 31)
-                        .add(jLabel9)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(0, 389, Short.MAX_VALUE)
         );
+
+        jLabel2.setText("Entradas:");
+
+        txtEntradas.setEditable(false);
+
+        jLabel5.setText("Salidas:");
+
+        txtSalidas.setEditable(false);
+
+        txtPatrones.setEditable(false);
+
+        jLabel6.setText("Patrones:");
 
         jMenuInicio.setText("Inicio ");
         jMenuInicio.setName(""); // NOI18N
@@ -251,84 +242,159 @@ public class Principal extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(31, 31, 31)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(buttonSiguienteEntradas)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .add(buttonCargar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(layout.createSequentialGroup()
-                                    .add(jLabel1)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                    .add(textPesos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(18, 18, 18)
-                                    .add(buttonAgregarPesos, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                                .add(buttonEntrada, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                            .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel3)
-                                    .add(jLabel4))
-                                .add(18, 18, 18)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(txtSalida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(txtFuncionSoma, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                    .add(jLabel2))
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(73, 73, 73)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                            .add(buttonCargar, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel1)
+                                .add(18, 18, 18)
+                                .add(textPesos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 70, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(buttonAgregarPesos))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel13)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(comboFuncionActivacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel2)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(txtEntradas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(44, 44, 44)
+                                .add(jLabel5)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(txtSalidas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(jLabel6)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(txtPatrones, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(35, 35, 35)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, buttonVerErrorIteracion)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, buttonYDvsYR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                            .add(layout.createSequentialGroup()
+                                .add(98, 98, 98)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel14)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(txtEli, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel4)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(txtYr, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel3)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(txtFuncionSoma, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                            .add(buttonEntrada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 355, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(layout.createSequentialGroup()
+                                .add(84, 84, 84)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                        .add(jLabel17)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(txtWji2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel16)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(txtWji1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel15)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(txtEp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                                .add(31, 31, 31)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                    .add(layout.createSequentialGroup()
+                                        .add(jLabel19)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                        .add(txtUi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
+                                        .add(jLabel18)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(txtWji3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, buttonSiguienteEntradas)))
+                            .add(layout.createSequentialGroup()
+                                .add(16, 16, 16)
+                                .add(buttonVerErrorIteracion)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                .add(buttonYDvsYR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 199, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(422, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(buttonCargar)
+                .add(25, 25, 25)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(463, 463, 463)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(buttonVerErrorIteracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(buttonYDvsYR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(buttonEntrada, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(layout.createSequentialGroup()
+                        .add(buttonCargar)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2)
+                            .add(txtEntradas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(jLabel5)
+                                .add(txtSalidas, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jLabel6)
+                                    .add(txtPatrones, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                        .add(13, 13, 13)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel1)
+                            .add(textPesos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(buttonAgregarPesos))
+                        .add(25, 25, 25)
+                        .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(26, 26, 26)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel13)
+                            .add(comboFuncionActivacion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(51, 51, 51)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel3)
+                            .add(txtFuncionSoma, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(25, 25, 25)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel4)
-                            .add(txtSalida, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(txtYr, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(26, 26, 26)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtEli, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel14)))
                     .add(layout.createSequentialGroup()
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(buttonVerErrorIteracion, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 123, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jLabel1)
-                                    .add(textPesos, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(buttonAgregarPesos))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(layout.createSequentialGroup()
-                                .add(18, 18, 18)
-                                .add(buttonYDvsYR, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                        .add(11, 11, 11)
-                        .add(buttonEntrada)
-                        .add(17, 17, 17)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createSequentialGroup()
-                                .add(jLabel2)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 64, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(buttonSiguienteEntradas)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                                    .add(txtEp, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(jLabel15)
+                                    .add(jLabel18)
+                                    .add(txtWji3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(25, 25, 25)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                                    .add(jLabel3)
-                                    .add(txtFuncionSoma, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .add(jLabel16)
+                                    .add(txtWji1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                .add(txtUi, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(jLabel19)))
+                        .add(25, 25, 25)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(txtWji2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel17)
+                            .add(buttonSiguienteEntradas))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -344,17 +410,24 @@ public class Principal extends javax.swing.JFrame {
 
     private void buttonCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCargarActionPerformed
        listEntradas = new ArrayList();
+       SeparadoEntradaArray = new ArrayList();
+       SeparadoSalidaArray = new ArrayList();
+       
         try {
-            listEntradas = archivoCarga.leerArchivo();
-                    
+            archivoCarga.cargarArchivo();
             
-            String titulos[]={"X1","X2","X3"};
+            listEntradas = archivoCarga.leerArchivo();
+            SeparadoEntradaArray = SeparadoEntrada.getListaEntradaSeparado();
+            SeparadoSalidaArray = SeparadoSalidas.getListaSalidas();
+
+           
+            String titulos[]={"X1","X2","X3","Y1"};
             model_Table = new DefaultTableModel();
             model_Table.setColumnIdentifiers(titulos);
        
         
             for(Entradas a: listEntradas){
-             Object datos[]={a.getX1(), a.getX2(),a.getX3()};
+             Object datos[]={a.getX1(), a.getX2(),a.getX3(),a.getY1()};
              model_Table.addRow(datos);
             }
             
@@ -364,7 +437,7 @@ public class Principal extends javax.swing.JFrame {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-              
+            Cargar();  
         
     }//GEN-LAST:event_buttonCargarActionPerformed
 
@@ -373,21 +446,31 @@ public class Principal extends javax.swing.JFrame {
         double parsePesos;
         
         parsePesos = Double.parseDouble(textPesos.getText());
-        
-        
+                
         if(parsePesos >= -1 && parsePesos <= 1){
            
                  Agregar();
               
         }else{
              JOptionPane.showMessageDialog(this, "Rango -1 a 1");
-        }
+        } 
+               
         
     }//GEN-LAST:event_buttonAgregarPesosActionPerformed
 
     private void buttonEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEntradaActionPerformed
 
     }//GEN-LAST:event_buttonEntradaActionPerformed
+
+    public void soma(){
+        
+        
+        
+    }
+    
+    private void comboFuncionActivacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboFuncionActivacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboFuncionActivacionActionPerformed
      
     public void Agregar(){
       
@@ -407,8 +490,7 @@ public class Principal extends javax.swing.JFrame {
            
            try {
             pesos = new Pesos();
-
-            
+        
             double parseoW1;
           
             parseoW1=Double.parseDouble(w1);
@@ -517,9 +599,29 @@ public class Principal extends javax.swing.JFrame {
             }
     }
     
-    public void Soma(){
-       
+    public void ComboBox(){
+       comboFuncionActivacion.removeAllItems();
+       comboFuncionActivacion.addItem("Seleccion");
+       comboFuncionActivacion.addItem("Escalon");
+       comboFuncionActivacion.addItem("Lineal");
+       comboFuncionActivacion.addItem("Sigmoide");
+      
     }
+    
+    public void Cargar(){
+        
+        String textPatrones = String.valueOf(SeparadoEntradaArray.size());
+        txtPatrones.setText(textPatrones);
+        txtSalidas.setText("1");
+      
+        if(SeparadoEntradaArray.get(2).getX3()==null){
+        txtEntradas.setText("2");
+        }else{
+        txtEntradas.setText("3"); 
+        }
+      
+    }
+    
     
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -560,35 +662,41 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton buttonSiguienteEntradas;
     private javax.swing.JButton buttonVerErrorIteracion;
     private javax.swing.JButton buttonYDvsYR;
+    private javax.swing.JComboBox<String> comboFuncionActivacion;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuCargar;
     private javax.swing.JMenuItem jMenuGuardar;
     private javax.swing.JMenu jMenuInicio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tableEntradas;
     private javax.swing.JTable tablePesos;
-    private javax.swing.JTable tablePesos2;
-    private javax.swing.JTable tableSalida;
-    private javax.swing.JTable tableValoresEntradas;
     private javax.swing.JTextField textPesos;
+    private javax.swing.JTextField txtEli;
+    private javax.swing.JTextField txtEntradas;
+    private javax.swing.JTextField txtEp;
     private javax.swing.JTextField txtFuncionSoma;
-    private javax.swing.JTextField txtFuncionSoma1;
-    private javax.swing.JTextField txtSalida;
-    private javax.swing.JTextField txtSalida1;
+    private javax.swing.JTextField txtPatrones;
+    private javax.swing.JTextField txtSalidas;
+    private javax.swing.JTextField txtUi;
+    private javax.swing.JTextField txtWji1;
+    private javax.swing.JTextField txtWji2;
+    private javax.swing.JTextField txtWji3;
+    private javax.swing.JTextField txtYr;
     // End of variables declaration//GEN-END:variables
 
 }
